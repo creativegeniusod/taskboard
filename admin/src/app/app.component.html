@@ -1,0 +1,79 @@
+<div class="custom-form-design">
+  <h1 class="header">My Task Board</h1>
+  <div class="content">
+    <div class="task-form">
+      <form [formGroup]="taskForm">
+        <label for="task-name"> Task Name: </label>
+        <input
+          type="text"
+          formControlName="title"
+          placeholder="Task Name"
+          id="task-name"
+        />
+        <div *ngIf="formControl.title.invalid && formControl.title.touched">
+          <span class="error" *ngIf="formControl.title.errors.required">
+            Title is required
+          </span>
+        </div>
+
+        <label for="task-date"> Task Date: </label>
+        <input
+          type="date"
+          formControlName="taskDate"
+          placeholder="Task Date"
+          id="task-date"
+          [min]="minDate"
+          required
+        />
+        <div
+          *ngIf="formControl.taskDate.invalid && formControl.taskDate.touched"
+        >
+          <span class="error" *ngIf="formControl.taskDate.errors.required">
+            Task Date is required
+          </span>
+        </div>
+        <label for="description"> Description: </label>
+        <textarea
+          formControlName="description"
+          id=""
+          cols="30"
+          rows="2"
+          placeholder="Description"
+          id="description"
+        ></textarea>
+        <div
+          *ngIf="
+            formControl.description.invalid && formControl.description.touched
+          "
+        >
+          <span class="error" *ngIf="formControl.description.errors.maxlength">
+            Cannot exceed 250 characters
+          </span>
+        </div>
+
+        <button (click)="submitForm()" [disabled]="taskForm.invalid">
+          Submit
+        </button>
+      </form>
+    </div>
+    <div class="task-list">
+      <div *ngIf="tasks.length == 0"><h3>No Tasks Available</h3></div>
+      <div class="task" *ngFor="let task of tasks; let i = index">
+        <div class="popup-section">
+          <div class="delete" (click)="deleteTask(i)">&#10005;</div>
+          <div class="popup-content">
+            <h3>{{ task.title }}</h3>
+            <p>{{ task.taskDate | date: "mediumDate" }}</p>
+            <p>
+              {{
+                task.description.length > 250
+                  ? trunc(task.description)
+                  : task.description
+              }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
