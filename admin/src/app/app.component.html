@@ -57,19 +57,19 @@
       </form>
     </div>
     <div class="task-list">
-      <div *ngIf="tasks.length == 0"><h3>No Tasks Available</h3></div>
+      <div *ngIf="tasks.length == 0">
+        <h3>No Tasks Available</h3>
+      </div>
       <div class="task" *ngFor="let task of tasks; let i = index">
         <div class="popup-section">
-          <div class="delete" (click)="deleteTask(i)">&#10005;</div>
+          <div class="delete" (click)="deleteTask(i)">
+            <img src="../assets/delete.png" />
+          </div>
           <div class="popup-content">
             <h3>{{ task.title }}</h3>
-            <p>{{ task.taskDate | date: "mediumDate" }}</p>
+            <p>{{ task.taskDate | date: 'mediumDate' }}</p>
             <p>
-              {{
-                task.description.length > 250
-                  ? trunc(task.description)
-                  : task.description
-              }}
+              {{ task.description }}
             </p>
           </div>
         </div>
@@ -77,3 +77,7 @@
     </div>
   </div>
 </div>
+
+<!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem illum pariatur error mollitia molestias? Illo
+quibusdam rerum libero perspiciatis expedita voluptatibus! Atque et recusandae alias tenetur quia commodi rem amet
+praesentium consectet -->
